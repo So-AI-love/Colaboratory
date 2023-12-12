@@ -1,0 +1,95 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/So-AI-love/Colaboratory/blob/master/DBlur_bank_system_1.pynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!pip install dblur"
+      ],
+      "metadata": {
+        "id": "_9XNvxfGXluS"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from dblur.default.restormer import deblur_imgs, deblur_single_img\n",
+        "\n",
+        "# @title (Please insert your request to be done by this code at below form:👇👇)\n",
+        "Image_url = \"Sustainable Food Waste Management: A ChatGPT-Powered Business Plan Solution with critical viewpoint \" # @param {type:\"string\"}\n",
+        "\n",
+        "# مسیر مدل پیش‌آموخته\n",
+        "model_path = \"path_for_model\"\n",
+        "\n",
+        "# مسیر تصاویر تاری\n",
+        "blurred_imgs_path = \"path_to_blurred_images\"\n",
+        "\n",
+        "# مسیر تصاویر تازه\n",
+        "sharp_imgs_path = \"path_to_sharp_images\"\n",
+        "\n",
+        "# رفع تاری تصاویر در یک پوشه با استفاده از مدل پیش‌آموخته\n",
+        "deblur_imgs(model_path, blurred_imgs_path, sharp_imgs_path)\n",
+        "\n",
+        "# رفع تاری یک تصویر تاری با استفاده از مدل پیش‌آموخته\n",
+        "deblur_single_img(model_path, \"path_to_blurred_image\", \"path_to_sharp_image\")"
+      ],
+      "metadata": {
+        "id": "eveO7XyeXhPN"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from dblur.testers.mscnn import MSCNNTester\n",
+        "from dblur.testers.stack_dmphn import StackDMPHNTester\n",
+        "from dblur.multi_modal_deblur import multi_modal_deblur\n",
+        "\n",
+        "mscnn_tester = MSCNNTester()\n",
+        "model1 = mscnn_tester.get_model()\n",
+        "dmphn_tester = StackDMPHNTester()\n",
+        "model2 = dmphn_tester.get_model(num_of_stacks=1)\n",
+        "\n",
+        "multi_modal_deblur(models=[model1, model2],\n",
+        "                 model_names=[\"MSCNN\", \"StackDMPHN\"],\n",
+        "                 model_paths=[model_path1, model_path2],\n",
+        "                 blur_img_path=blur_img_path,\n",
+        "                 sharp_img_path=sharp_img_path,\n",
+        "                 is_checkpoint=[True, True],\n",
+        "                 window_slicing=True,\n",
+        "                 window_size=256,\n",
+        "                 overlap_size=0)"
+      ],
+      "metadata": {
+        "id": "DSW0rmxbXj4K"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    },
+    "accelerator": "TPU"
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
